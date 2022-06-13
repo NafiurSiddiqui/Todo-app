@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
+import classes from './NewTodo.module.css';
 
-const NewTodo = () => {
+const NewTodo: React.FC<{ onAddToDo: (text: string) => void }> = (props) => {
 	const todoTextInputRef = useRef<HTMLInputElement>(null);
 
 	const submitHandler = (event: React.FormEvent) => {
@@ -13,9 +14,11 @@ const NewTodo = () => {
 			// throw an error
 			return;
 		}
+
+		props.onAddToDo(enteredText);
 	};
 	return (
-		<form onSubmit={submitHandler}>
+		<form onSubmit={submitHandler} className={classes.form}>
 			<label htmlFor="text">Todo text</label>
 			<input type="text" id="text" ref={todoTextInputRef} />
 			<button>Add todo</button>
@@ -24,3 +27,7 @@ const NewTodo = () => {
 };
 
 export default NewTodo;
+
+/**
+ * Here in the FC we defined a FUNCTION type, which typescript has. Inside, we set void if nothing is returned from the function.
+ */
